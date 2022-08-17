@@ -7,6 +7,13 @@
 // `La letra "u" es convertida para "ufat"`
 // message secret
 // fenterlimescimesdaidenters poberr enternfrenterntair enterstenter dentersaifimesober y haibenterrlober cobernclufatimesdober cobern enterximestober!
+// capturar los elementos
+let input = document.getElementById("input")
+const btnEncriptador = document.getElementById("encriptador")
+const btnDesencriptador = document.getElementById("desencriptador")
+const btnCopy = document.getElementById("copy")
+const regEx = /[aeiouáéíóú]/
+const output = document.getElementById("output")
 const keys = {
     e: "enter",
     i: "imes",
@@ -40,31 +47,27 @@ function encriptar(string) {
     }
     return valueEncripted
 }
-// capturar los elementos
-const input = document.getElementById("input")
-const btnEncriptador = document.getElementById("encriptador")
-const btnDesencriptador = document.getElementById("desencriptador")
-const btnCopy = document.getElementById("copy")
-const regEx = /[aeiouáéíóú]/
-const output = document.getElementById("output")
-function prueb() {
+
+function pegar() {
     return new Promise((resolve, reject) => {
         resolve(navigator.clipboard.readText())
     })
 }
 btnCopy.onclick = async ()=>{
-    console.log(navigator);
     const cp =  await new Promise((resolve,reject) =>{
-        resolve(navigator.clipboard.writeText(output.value))
+        resolve(navigator.clipboard.writeText(output.innerHTML))
+        // agregar un pop up que diga copiado
         console.log("copiado");
     });
-    const reso = await prueb()
+    const reso = await pegar()
     // console.log(reso)
-    // var options = {
-    //     enableHighAccuracy: true,
-    //     timeout: 5000,
-    //     maximumAge: 0
-    //   };
+  
+
+
+
+
+
+
     // const geo = await new Promise((resolve, reject) => {
     //     resolve(navigator.geolocation.getCurrentPosition((position)=>{
     //         let cordernada = position.coords
@@ -75,7 +78,7 @@ btnCopy.onclick = async ()=>{
         
     //     },(error)=>{
     //         console.error(`error ${error.code} --- ${error.message}`);
-    //     },options))
+    //     }))
     // })
     // console.log(geo);
 }
@@ -83,9 +86,10 @@ btnCopy.onclick = async ()=>{
 btnDesencriptador.onclick = () => {
     // gaitober
     let value = input.value
-    output.value = desencriptar(value)
+    output.innerHTML = desencriptar(value)
 }
 btnEncriptador.onclick = () => {
     let value = input.value
-    output.value = encriptar(value)
+    output.innerHTML = encriptar(value)
+    input.value = ""
 }

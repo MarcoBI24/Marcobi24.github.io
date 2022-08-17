@@ -2,43 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
-body{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    gap: 20px;
-    background-color: #000c;
-}
-#input{
-    color:white;
-    padding: 10px;
-    font-size: 20px;
-    width: 400px;
-    background-color: black;
-    /* border: 2px solid white; */
-
-}
-button{
-    padding: 15px;
-    font-size: 20px;
-}
-#encriptador{
-
-}
-
-#desenciptador{
-
-}
-#output{
-    width: 400px;
-    padding: 10px;
-    font-size: 20px;
-    color:white;
-    background-color: black;
-    /* border: 2px solid white; */
+    font-family: "Inter";
 }
 
 
