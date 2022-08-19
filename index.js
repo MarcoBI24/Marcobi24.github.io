@@ -1,3 +1,7 @@
+//  hacer un boton para que la pantalla cambie de color a n&b 
+// hacer para que se pueda encriptar y desencriptar con atajos de teclado
+//  hacer una animacion 
+// cambio de color de los botones cuando se haga click
 // Las "llaves" de encriptación que utilizaremos son las siguientes:
 
 // `La letra "e" es convertida para "enter"`
@@ -14,6 +18,8 @@ const btnDesencriptador = document.getElementById("desencriptador")
 const btnCopy = document.getElementById("copy")
 const regEx = /[aeiouáéíóú]/
 const output = document.getElementById("output")
+const contenedorMsgVacio = document.getElementById("section-2-conteiner-msg-vacio")
+const contenedorSection2 = document.getElementById("section2")
 const keys = {
     e: "enter",
     i: "imes",
@@ -53,18 +59,21 @@ function pegar() {
         resolve(navigator.clipboard.readText())
     })
 }
-btnCopy.onclick = async ()=>{
-    const cp =  await new Promise((resolve,reject) =>{
+btnCopy.onclick = async () => {
+    const cp = await new Promise((resolve, reject) => {
         resolve(navigator.clipboard.writeText(output.innerHTML))
         // agregar un pop up que diga copiado
         console.log("copiado");
     });
     const reso = await pegar()
     // console.log(reso)
-  
+    contenedorSection2.style.animation = "copied .6s 3 alternate ease-in-out"
+    btnCopy.innerHTML = "Copiado!!!"
 
-
-
+    setTimeout(() => {
+        contenedorSection2.style.animation = ""
+        btnCopy.innerHTML = "Copiar"
+    }, 1800);
 
 
 
@@ -75,7 +84,7 @@ btnCopy.onclick = async ()=>{
     //         console.log(`Longitud : ${cordernada.longitude}`);
     //         console.log(`Altitud: ${cordernada.altitude}`);
     //         console.log(`Mas o menos : ${cordernada.accuracy} meters`);
-        
+
     //     },(error)=>{
     //         console.error(`error ${error.code} --- ${error.message}`);
     //     }))
@@ -86,10 +95,62 @@ btnCopy.onclick = async ()=>{
 btnDesencriptador.onclick = () => {
     // gaitober
     let value = input.value
-    output.innerHTML = desencriptar(value)
+    let valueDescript = desencriptar(value)
+    let duration = 50
+    if (valueDescript.length < 50) {
+        // duration = 0
+        writeAnimation(valueDescript, duration)
+    }else{
+        output.innerHTML = valueDescript
+    }
+    verificarSiEstaVacio(value)
+    writeAnimation(valueDescript,duration)
+    input.value = ""
+
 }
 btnEncriptador.onclick = () => {
     let value = input.value
-    output.innerHTML = encriptar(value)
+    verificarSiEstaVacio(value)
+    let valueEncrip = encriptar(value)
+    let duration = 50
+    if (valueEncrip.length < 50) {
+        // duration = 0
+        writeAnimation(valueEncrip,duration)
+    }else{
+        output.innerHTML = valueEncrip
+    }
     input.value = ""
+
 }
+
+function verificarSiEstaVacio(value) {
+    if (value == "" || value == undefined) {
+        contenedorMsgVacio.style.display = "flex"
+        output.style.display = "none"
+        btnCopy.style.display = "none"
+    } else {
+        contenedorMsgVacio.style.display = "none"
+        btnCopy.style.display = "flex"
+        output.style.display = "inline-block"
+        output.innerHTML = ""
+    }
+}
+function writeAnimation(value, duration) {
+    let i = 0
+    let idInterval
+    startInterval(value, duration)
+    function writeText(value) {
+        if (i >= value.length - 1) {
+            clearInterval(idInterval)
+        }
+        output.innerHTML += value[i]
+        i++
+    
+    }
+    function startInterval(value,duration) {
+        idInterval = setInterval(writeText, duration, value);
+    }
+}
+
+// let ctn2 = document.getElementById("texto")
+// console.log(ctn2);
