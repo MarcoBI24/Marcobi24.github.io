@@ -2,6 +2,35 @@
 // hacer para que se pueda encriptar y desencriptar con atajos de teclado
 //  hacer una animacion 
 // cambio de color de los botones cuando se haga click
+const botones = {
+    boton1 : "",
+    boton2 : ""
+}
+const btnEncriptador = document.getElementById("encriptador")
+window.onkeydown = (e)=>{
+   console.log(e.key);
+    botones.boton1 = e.key
+    botones.boton2 = e.key
+    if (e.key !== botones.boton1) {
+        botones.boton1 = e.key
+    }else{
+        botones.boton1 = ""
+
+    }
+
+    if (botones.boton2 == botones.boton1) {
+        botones.boton2 = ""    
+    }else{
+
+        botones.boton2 = e.key
+    }
+
+    if (botones.boton1 ==  "Control" && botones.boton2 == "m") {
+        console.log("Funciona");
+    }
+}
+
+
 // Las "llaves" de encriptación que utilizaremos son las siguientes:
 
 // `La letra "e" es convertida para "enter"`
@@ -13,7 +42,7 @@
 // fenterlimescimesdaidenters poberr enternfrenterntair enterstenter dentersaifimesober y haibenterrlober cobernclufatimesdober cobern enterximestober!
 // capturar los elementos
 let input = document.getElementById("input")
-const btnEncriptador = document.getElementById("encriptador")
+// const btnEncriptador = document.getElementById("encriptador")
 const btnDesencriptador = document.getElementById("desencriptador")
 const btnCopy = document.getElementById("copy")
 const regEx = /[aeiouáéíóú]/
@@ -60,6 +89,7 @@ function pegar() {
     })
 }
 btnCopy.onclick = async () => {
+
     const cp = await new Promise((resolve, reject) => {
         resolve(navigator.clipboard.writeText(output.innerHTML))
         // agregar un pop up que diga copiado
@@ -67,13 +97,18 @@ btnCopy.onclick = async () => {
     });
     const reso = await pegar()
     // console.log(reso)
-    contenedorSection2.style.animation = "copied .6s 3 alternate ease-in-out"
+    contenedorSection2.style.setProperty("--color", "darkblue");
+    contenedorSection2.style.animation = "rotate 1s 3 alternate ease-in-out"
     btnCopy.innerHTML = "Copiado!!!"
-
     setTimeout(() => {
         contenedorSection2.style.animation = ""
+        contenedorSection2.style.setProperty("--color", "transparent");
+
         btnCopy.innerHTML = "Copiar"
     }, 1800);
+
+
+
 
 
 
@@ -100,11 +135,10 @@ btnDesencriptador.onclick = () => {
     if (valueDescript.length < 50) {
         // duration = 0
         writeAnimation(valueDescript, duration)
-    }else{
+    } else {
         output.innerHTML = valueDescript
     }
     verificarSiEstaVacio(value)
-    writeAnimation(valueDescript,duration)
     input.value = ""
 
 }
@@ -115,8 +149,8 @@ btnEncriptador.onclick = () => {
     let duration = 50
     if (valueEncrip.length < 50) {
         // duration = 0
-        writeAnimation(valueEncrip,duration)
-    }else{
+        writeAnimation(valueEncrip, duration)
+    } else {
         output.innerHTML = valueEncrip
     }
     input.value = ""
@@ -145,9 +179,9 @@ function writeAnimation(value, duration) {
         }
         output.innerHTML += value[i]
         i++
-    
+
     }
-    function startInterval(value,duration) {
+    function startInterval(value, duration) {
         idInterval = setInterval(writeText, duration, value);
     }
 }

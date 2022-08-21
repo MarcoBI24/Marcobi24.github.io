@@ -1,10 +1,19 @@
-/*  cambiar el disseño del cursor */
+/*  cambiar el disseño del cursor 
+   cambiar la variable del color con JS y hacer la aniamacion
+   usando getComputedStyle
+ *
+ *  */
+
 
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: "Inter";
+}
+:root{
+    --angle : 0deg;
+    --color : transparent
 }
 body{
     background: #F3F5FC;
@@ -86,6 +95,7 @@ body{
             .info-text{
                 opacity: .5;
                 font-size: calc(.5rem + .5vw);
+                height: min-content;
             }
 
         .section-1-conteiner-buttons{
@@ -104,6 +114,8 @@ body{
                 font-size: calc(.7rem + .8vw);
                 border-radius: calc(1.5vw);
                 padding: calc(1.3vw);
+                /* height: ; */
+                max-height: 80px;
                 /* padding: calc(3vw) calc(2vw); */
                 /* width: min-content;
                 height: min-content; */
@@ -112,15 +124,43 @@ body{
                 border: 1px solid transparent;
                 background-color: #0A3871;
                 color: #fff;
-
+                z-index: 200;
+                position: relative;
+                overflow: hidden;
+            }
+            .btn-encriptador:active{
+                background-color: #D8DFE8;
+                color: darkblue;
+                border: 1px solid #0A3871;
+            } 
+            .btn-desencriptador:active , .btn-copiar:active{
+                background-color: #0A3871;
+                color: #fff;
+                border: 1px solid #fff;
+            }   
+            #canvas{
+                z-index: 1;
+                width: 100%;
+                /* height: 100%; */
+                position: absolute;
+                border: 1px solid;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                /* float: left; */
+            }
+            .btn-encriptador:hover{
+                
             }
             .btn-desencriptador{
                 border: 1px solid darkblue;
                 color: darkblue;
                 background-color: #D8DFE8;
             }
-
-
+      
+         
+         
     .conteiner-section-2{
         flex: 1 1 ;
         max-width: 500px;
@@ -135,8 +175,19 @@ body{
         padding: 30px 40px;
         max-height: 100%;
         gap: 20px;
+        border-image: conic-gradient(
+            from var(--angle),
+            transparent 0deg 90deg,
+            transparent 90deg 180deg,
+            var(--color) 180deg 270deg,
+            transparent 270deg 360deg
+        )
+        1 stretch;
+        /* border-image: none;
+        transition: animation 5s; */
+        /* animation: rotate  2s linear infinite ; */
     }
-
+ 
         #section-2-conteiner-msg-vacio{
             /* border: 2px solid; */
             /* display: none; */
@@ -185,18 +236,18 @@ body{
         }
         
        
-        @keyframes copied {
-            0%{
-                border-image: linear-gradient(-45deg, white,white,white, rgb(39, 136, 227),white,white,white);
-                border-image-slice: 30% 30% 30% 30%;
-                border-image-width: 6px;
-            }
-            100%{
-               border-image: linear-gradient(45deg, white,white,white, rgb(39, 136, 227),white,white,white);
-                border-image-slice: 30% 30% 30% 30%;
-                border-image-width: 6px;
-            }
-        }
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+          }
+        @keyframes rotate {
+              to {
+                /* --color: darkblue; */
+                --angle: 360deg;
+                /* --color: transparent; */
+              }
+            }             
         .output::-webkit-scrollbar{/* stilos para el scroll del output */  
             background-color: transparent;
             width: 5px;
