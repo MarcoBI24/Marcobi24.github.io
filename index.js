@@ -2,34 +2,41 @@
 // hacer para que se pueda encriptar y desencriptar con atajos de teclado
 //  hacer una animacion 
 // cambio de color de los botones cuando se haga click
-const botones = {
-    boton1 : "",
-    boton2 : ""
-}
+let btnDown = ""
+let btnUp = ""
 const btnEncriptador = document.getElementById("encriptador")
+// verificar que esta pulsado el boton Control con el keydown para el siguiente keydown
+// si esta esta pulsado el keydown no se altera (se deja como Control) y el keyup seria el siguiente keyup
+//  y cuando ya este soltado el keyup (osea se ejecuta el atajo) el keyDown se reinicia y el keyUp 
+//  si esque no esta pulsado el btoton Control el keyDown seria el key pulsado y el keyup tambien sera el mismo
 window.onkeydown = (e)=>{
-   console.log(e.key);
-    botones.boton1 = e.key
-    botones.boton2 = e.key
-    if (e.key !== botones.boton1) {
-        botones.boton1 = e.key
-    }else{
-        botones.boton1 = ""
-
+    if (!siControlEstaPulsado()) {
+        btnDown = e.key
     }
-
-    if (botones.boton2 == botones.boton1) {
-        botones.boton2 = ""    
-    }else{
-
-        botones.boton2 = e.key
+}
+window.onkeyup = (e)=>{
+    if (siControlEstaPulsado()) {
+        btnUp = e.key
+        if (btnDown == "Control" && btnUp == "m") {
+            console.log("Funciona causa!!!!");
+            btnUp = ""
+        }else{
+            console.log(`Pulsaste ${e.key}`);
+        }
     }
-
-    if (botones.boton1 ==  "Control" && botones.boton2 == "m") {
-        console.log("Funciona");
+    if (siControlEstaPulsado() == false) {
+        btnDown = ""
+        btnUp =  ""
     }
 }
 
+function siControlEstaPulsado() {
+    let pulsado = false
+    if (btnDown == "Control" && btnUp == "") {
+        pulsado = true
+    }
+    return pulsado
+}
 
 // Las "llaves" de encriptación que utilizaremos son las siguientes:
 
