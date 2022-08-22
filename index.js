@@ -2,41 +2,7 @@
 // hacer para que se pueda encriptar y desencriptar con atajos de teclado
 //  hacer una animacion 
 // cambio de color de los botones cuando se haga click
-let btnDown = ""
-let btnUp = ""
-const btnEncriptador = document.getElementById("encriptador")
-// verificar que esta pulsado el boton Control con el keydown para el siguiente keydown
-// si esta esta pulsado el keydown no se altera (se deja como Control) y el keyup seria el siguiente keyup
-//  y cuando ya este soltado el keyup (osea se ejecuta el atajo) el keyDown se reinicia y el keyUp 
-//  si esque no esta pulsado el btoton Control el keyDown seria el key pulsado y el keyup tambien sera el mismo
-window.onkeydown = (e)=>{
-    if (!siControlEstaPulsado()) {
-        btnDown = e.key
-    }
-}
-window.onkeyup = (e)=>{
-    if (siControlEstaPulsado()) {
-        btnUp = e.key
-        if (btnDown == "Control" && btnUp == "m") {
-            console.log("Funciona causa!!!!");
-            btnUp = ""
-        }else{
-            console.log(`Pulsaste ${e.key}`);
-        }
-    }
-    if (siControlEstaPulsado() == false) {
-        btnDown = ""
-        btnUp =  ""
-    }
-}
 
-function siControlEstaPulsado() {
-    let pulsado = false
-    if (btnDown == "Control" && btnUp == "") {
-        pulsado = true
-    }
-    return pulsado
-}
 
 // Las "llaves" de encriptación que utilizaremos son las siguientes:
 
@@ -49,7 +15,7 @@ function siControlEstaPulsado() {
 // fenterlimescimesdaidenters poberr enternfrenterntair enterstenter dentersaifimesober y haibenterrlober cobernclufatimesdober cobern enterximestober!
 // capturar los elementos
 let input = document.getElementById("input")
-// const btnEncriptador = document.getElementById("encriptador")
+const btnEncriptador = document.getElementById("encriptador")
 const btnDesencriptador = document.getElementById("desencriptador")
 const btnCopy = document.getElementById("copy")
 const regEx = /[aeiouáéíóú]/
@@ -134,7 +100,8 @@ btnCopy.onclick = async () => {
     // console.log(geo);
 }
 
-btnDesencriptador.onclick = () => {
+btnDesencriptador.onclick = desencript
+function desencript() {
     // gaitober
     let value = input.value
     let valueDescript = desencriptar(value)
@@ -149,7 +116,7 @@ btnDesencriptador.onclick = () => {
     input.value = ""
 
 }
-btnEncriptador.onclick = () => {
+function encript() {
     let value = input.value
     verificarSiEstaVacio(value)
     let valueEncrip = encriptar(value)
@@ -161,8 +128,8 @@ btnEncriptador.onclick = () => {
         output.innerHTML = valueEncrip
     }
     input.value = ""
-
 }
+btnEncriptador.addEventListener("click", encript)
 
 function verificarSiEstaVacio(value) {
     if (value == "" || value == undefined) {
@@ -193,5 +160,64 @@ function writeAnimation(value, duration) {
     }
 }
 
-// let ctn2 = document.getElementById("texto")
-// console.log(ctn2);
+
+
+
+
+let btnDown = ""
+let btnUp = ""
+const style = `background-color: #D8DFE8;
+color: darkblue;
+border: 1px solid #0A3871;`
+const style2 = `background-color: #0A3871;
+color: #fff;
+border: 1px solid #fff;`
+
+// verificar que esta pulsado el boton Control con el keydown para el siguiente keydown
+// si esta esta pulsado el keydown no se altera (se deja como Control) y el keyup seria el siguiente keyup
+//  y cuando ya este soltado el keyup (osea se ejecuta el atajo) el keyDown se reinicia y el keyUp 
+//  si esque no esta pulsado el btoton Control el keyDown seria el key pulsado y el keyup tambien sera el mismo
+window.onkeydown = (e) => {
+    if (!siControlEstaPulsado()) {
+        btnDown = e.key
+    }
+    if (siControlEstaPulsado() == true && e.key == "m") {
+        btnEncriptador.style = style
+    }
+    if (siControlEstaPulsado() == true && e.key == "q") {
+        btnDesencriptador.style = style2
+    }
+}
+window.onkeyup = (e) => {
+    if (siControlEstaPulsado()) {
+        btnUp = e.key
+        if (btnDown == "Control" && btnUp == "m") {
+            // encript()
+
+            const event = new Event("click");
+            btnEncriptador.dispatchEvent(event)
+            btnEncriptador.style = style2
+            btnUp = ""
+        } else if (btnDown == "Control" && btnUp == "q") {
+            const event = new Event("click");
+            btnDesencriptador.dispatchEvent(event)
+            btnDesencriptador.style = style
+            btnUp = ""
+        }
+        else {
+            console.log(`Pulsaste ${e.key}`);
+        }
+    }
+    if (siControlEstaPulsado() == false) {
+        btnDown = ""
+        btnUp = ""
+    }
+}
+
+function siControlEstaPulsado() {
+    let pulsado = false
+    if (btnDown == "Control" && btnUp == "") {
+        pulsado = true
+    }
+    return pulsado
+}

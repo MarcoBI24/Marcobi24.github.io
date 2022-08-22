@@ -115,6 +115,12 @@ body{
                 border-radius: calc(1.5vw);
                 padding: calc(1.3vw);
                 /* height: ; */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                /* gap: 5px; */
+                font-weight: 900;
                 max-height: 80px;
                 /* padding: calc(3vw) calc(2vw); */
                 /* width: min-content;
@@ -127,6 +133,19 @@ body{
                 z-index: 200;
                 position: relative;
                 overflow: hidden;
+                
+            }
+            .btn-encriptador::after{
+                font-size: calc(.5rem + .7vw);
+                content: "Ctrl + m";
+                opacity: .7;
+                font-weight: 500;
+            }
+            .btn-desencriptador::after{
+                font-size: calc(.5rem + .7vw);
+                content: "Ctrl + q";
+                opacity: .7;
+                font-weight: 500;
             }
             .btn-encriptador:active{
                 background-color: #D8DFE8;
