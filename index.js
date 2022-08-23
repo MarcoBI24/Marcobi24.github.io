@@ -1,9 +1,6 @@
 //  hacer un boton para que la pantalla cambie de color a n&b 
-// hacer para que se pueda encriptar y desencriptar con atajos de teclado
-//  hacer una animacion 
-// cambio de color de los botones cuando se haga click
 
-
+// console.log(navigator.userAgent);
 // Las "llaves" de encriptación que utilizaremos son las siguientes:
 
 // `La letra "e" es convertida para "enter"`
@@ -22,6 +19,22 @@ const regEx = /[aeiouáéíóú]/
 const output = document.getElementById("output")
 const contenedorMsgVacio = document.getElementById("section-2-conteiner-msg-vacio")
 const contenedorSection2 = document.getElementById("section2")
+window.onload = verificaSiEstaEnCelular
+
+function verificaSiEstaEnCelular() {
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+        btnCopy.dataset.content = ""
+        btnDesencriptador.dataset.content = ""
+        btnEncriptador.dataset.content = ""
+    } else {
+    
+        btnCopy.dataset.content = "Ctrl + c"
+        btnDesencriptador.dataset.content = "Ctrl + q"
+        btnEncriptador.dataset.content = "Ctrl + m"
+    }
+}
+
+
 const keys = {
     e: "enter",
     i: "imes",
@@ -55,52 +68,35 @@ function encriptar(string) {
     }
     return valueEncripted
 }
-
-function pegar() {
-    return new Promise((resolve, reject) => {
-        resolve(navigator.clipboard.readText())
-    })
-}
-btnCopy.onclick = async () => {
-
-    const cp = await new Promise((resolve, reject) => {
-        resolve(navigator.clipboard.writeText(output.innerHTML))
-        // agregar un pop up que diga copiado
-        console.log("copiado");
-    });
-    const reso = await pegar()
-    // console.log(reso)
-    contenedorSection2.style.setProperty("--color", "darkblue");
+function copied() {
+    contenedorSection2.style.setProperty("--color", "var(--color-border)");
     contenedorSection2.style.animation = "rotate 1s 3 alternate ease-in-out"
     btnCopy.innerHTML = "Copiado!!!"
     setTimeout(() => {
         contenedorSection2.style.animation = ""
         contenedorSection2.style.setProperty("--color", "transparent");
-
         btnCopy.innerHTML = "Copiar"
     }, 1800);
+}
+function pegar() {
+    return new Promise((resolve) => {
+        resolve(navigator.clipboard.readText())
+    })
+}
+async function coping() {
+    new Promise((resolve) => {
+        resolve(navigator.clipboard.writeText(output.innerHTML))
+        console.log("copiado");
+    });
 
-
-
-
-
-
-    // const geo = await new Promise((resolve, reject) => {
-    //     resolve(navigator.geolocation.getCurrentPosition((position)=>{
-    //         let cordernada = position.coords
-    //         console.log(`Latitud : ${cordernada.latitude}`);
-    //         console.log(`Longitud : ${cordernada.longitude}`);
-    //         console.log(`Altitud: ${cordernada.altitude}`);
-    //         console.log(`Mas o menos : ${cordernada.accuracy} meters`);
-
-    //     },(error)=>{
-    //         console.error(`error ${error.code} --- ${error.message}`);
-    //     }))
-    // })
-    // console.log(geo);
+}
+btnCopy.onclick = async () => {
+    await coping()
+    copied()
 }
 
 btnDesencriptador.onclick = desencript
+btnEncriptador.onclick = encript
 function desencript() {
     // gaitober
     let value = input.value
@@ -129,7 +125,7 @@ function encript() {
     }
     input.value = ""
 }
-btnEncriptador.addEventListener("click", encript)
+
 
 function verificarSiEstaVacio(value) {
     if (value == "" || value == undefined) {
@@ -166,26 +162,31 @@ function writeAnimation(value, duration) {
 
 let btnDown = ""
 let btnUp = ""
-const style = `background-color: #D8DFE8;
-color: darkblue;
-border: 1px solid #0A3871;`
-const style2 = `background-color: #0A3871;
-color: #fff;
-border: 1px solid #fff;`
+
 
 // verificar que esta pulsado el boton Control con el keydown para el siguiente keydown
 // si esta esta pulsado el keydown no se altera (se deja como Control) y el keyup seria el siguiente keyup
-//  y cuando ya este soltado el keyup (osea se ejecuta el atajo) el keyDown se reinicia y el keyUp 
+//  y cuando ya este soltado el keyup (osea se ejecuta el atajo) el keyDown se reinicia y el keyUp tambien
 //  si esque no esta pulsado el btoton Control el keyDown seria el key pulsado y el keyup tambien sera el mismo
+
+
 window.onkeydown = (e) => {
     if (!siControlEstaPulsado()) {
         btnDown = e.key
     }
     if (siControlEstaPulsado() == true && e.key == "m") {
-        btnEncriptador.style = style
+        btnEncriptador.classList.remove("btn-encriptador")
+        btnEncriptador.classList.add("btn-encriptador-active")
+
     }
     if (siControlEstaPulsado() == true && e.key == "q") {
-        btnDesencriptador.style = style2
+        btnDesencriptador.classList.remove("btn-desencriptador")
+        btnDesencriptador.classList.add("btn-desencriptador-active")
+    }
+    if (siControlEstaPulsado() == true && e.key == "c") {
+        btnCopy.classList.remove("btn-copiar")
+        btnCopy.classList.add("btn-copiar-active")
+
     }
 }
 window.onkeyup = (e) => {
@@ -196,12 +197,22 @@ window.onkeyup = (e) => {
 
             const event = new Event("click");
             btnEncriptador.dispatchEvent(event)
-            btnEncriptador.style = style2
+            // btnEncriptador.style = style2
+            btnEncriptador.classList.remove("btn-encriptador-active")
+            btnEncriptador.classList.add("btn-encriptador")
             btnUp = ""
         } else if (btnDown == "Control" && btnUp == "q") {
             const event = new Event("click");
             btnDesencriptador.dispatchEvent(event)
-            btnDesencriptador.style = style
+            btnDesencriptador.classList.remove("btn-desencriptador-active")
+            btnDesencriptador.classList.add("btn-desencriptador")
+            btnUp = ""
+        }
+        else if (btnDown == "Control" && btnUp == "c") {
+            const event = new Event("click");
+            btnCopy.dispatchEvent(event)
+            btnCopy.classList.remove("btn-copiar-active")
+            btnCopy.classList.add("btn-copiar")
             btnUp = ""
         }
         else {
