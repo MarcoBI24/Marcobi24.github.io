@@ -19,17 +19,19 @@
     --color-border : #0A3871;
     --color-contrast-claro: #D8DFE8;
     --color-contrast-oscuro : #fff */
-    --background : #181e22;
-    --color-bg-botones : #212E36;
+    --background : #292929;
+    --color-bg-botones : #45494b;
     --color-border : #A0a7ac;
     --color-contrast-claro: #C8CDD0;
-    --color-contrast-oscuro : #000
+    --color-contrast-oscuro : #000;
    
    
 
 } 
 body{
+
     background: var(--background);
+
 }
 .conteiner-main{
     padding: 30px 60px;
@@ -92,19 +94,69 @@ body{
             width: 100%;
             max-width: 800px;
             display: flex;
-            align-items: flex-end;
+             align-items: center;
+            /* justify-content: end; */ 
+
             gap: 10px;
         }
-            .info-logo{
-                height: min-content;
+            .contenedor-info-text{
+                flex: 1 1;
+                width: 100%;
+                display: flex;
+                gap: 5px;
+                justify-self: flex-start;
             }
-            .info-text{
-                opacity: .5;
-                font-size: calc(.5rem + .5vw);
-                height: min-content;
-                color: var(--color-bg-botones);
+                .info-logo{
+                    height: min-content;
+                    justify-self: start;
+                }
+                .info-text{
+                    opacity: .5;
+                    font-size: calc(.5rem + .5vw);
+                    height: min-content;
+                    color: var(--color-border);
+                }
+            .conteiner-button-theme{
+                width: 100%;
+                flex: 0 0;
+                justify-self: flex-end;
+                display: flex;
+                justify-content: end;
+                /* align-self: flex-end; */
             }
-
+                .btn-checkbox{
+                    display: none;
+                }
+                .label-checkbox{
+                    background-color: #D8DFE8;
+                    display: flex;
+                    width: 4rem;
+                    border-radius: 50px;
+                    height: 2rem;
+                    position: relative;
+                    justify-content: flex-end;
+                }
+                .img-theme-dark{
+                    /* width: 100%;
+                    height: 100%; */
+                    object-fit: cover;
+                    display: flex;
+                    width: 2rem;
+                    height: 2rem;
+                    background-color: #4e4b;
+                    /* content: ""; */
+                    /* position: absolute; */
+                    border-radius: 50%;
+                    /* left:  */
+                    transition: justify 2s;
+                }
+               
+                .btn-checkbox:checked + .label-checkbox{
+                    /* transform: translateX(5rem); */
+                    /* right: 0; */
+                    /* left: 100%; */
+                    justify-content: flex-start;
+                }
         .section-1-conteiner-buttons{
             flex: 1.3 1;
             display: flex;
