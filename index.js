@@ -1,6 +1,5 @@
-//  hacer un boton para que la pantalla cambie de color a n&b 
 
-// console.log(navigator.userAgent);
+
 // Las "llaves" de encriptación que utilizaremos son las siguientes:
 
 // `La letra "e" es convertida para "enter"`
@@ -18,22 +17,51 @@ const btnCopy = document.getElementById("copy")
 const regEx = /[aeiouáéíóú]/
 const output = document.getElementById("output")
 const contenedorMsgVacio = document.getElementById("section-2-conteiner-msg-vacio")
+const btnTheme = document.getElementById("checkbox")
+const theme = document.getElementById("theme-btn")
+const logo = document.getElementById("logo-img")
+const muñeco = document.getElementById("muñeco-img")
 const contenedorSection2 = document.getElementById("section2")
 window.onload = verificaSiEstaEnCelular
+btnTheme.onclick = () => {
+    if (!btnTheme.checked) {
+        theme.src = `${location.origin}/img/themeLight.png`
+        logo.src = `${location.origin}/img/logo-alura.png`
+        muñeco.src = `${location.origin}/img/Muñeco.png`
+        document.documentElement.style.setProperty("--background", "#F3F5FC")
+        document.documentElement.style.setProperty("--color-bg-botones", "#0A3871")
+        document.documentElement.style.setProperty("--color-border", "#0A3871")
+        document.documentElement.style.setProperty("--color-contrast-claro", "#D8DFE8")
+        document.documentElement.style.setProperty("--color-contrast-oscuro", "#fff")
 
+
+        return
+
+    }
+    theme.src = `${location.origin}/img/themeDark.png`
+    logo.src = `${location.origin}/img/image.png`
+    muñeco.src = `${location.origin}/img/muñeco-b&n.png`
+    document.documentElement.style.setProperty("--background", "#292929")
+    document.documentElement.style.setProperty("--color-bg-botones", "#45494b")
+    document.documentElement.style.setProperty("--color-border", "#A0a7ac")
+    document.documentElement.style.setProperty("--color-contrast-claro", "#C8CDD0")
+    document.documentElement.style.setProperty("--color-contrast-oscuro", "#000")
+
+
+
+}
 function verificaSiEstaEnCelular() {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
         btnCopy.dataset.content = ""
         btnDesencriptador.dataset.content = ""
         btnEncriptador.dataset.content = ""
     } else {
-    
+
         btnCopy.dataset.content = "Ctrl + c"
         btnDesencriptador.dataset.content = "Ctrl + q"
         btnEncriptador.dataset.content = "Ctrl + m"
     }
 }
-
 
 const keys = {
     e: "enter",
@@ -101,6 +129,7 @@ function desencript() {
     // gaitober
     let value = input.value
     let valueDescript = desencriptar(value)
+    verificarSiEstaVacio(value)
     let duration = 50
     if (valueDescript.length < 50) {
         // duration = 0
@@ -108,7 +137,6 @@ function desencript() {
     } else {
         output.innerHTML = valueDescript
     }
-    verificarSiEstaVacio(value)
     input.value = ""
 
 }
