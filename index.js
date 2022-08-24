@@ -57,9 +57,9 @@ function verificaSiEstaEnCelular() {
         btnEncriptador.dataset.content = ""
     } else {
 
-        btnCopy.dataset.content = "Ctrl + c"
-        btnDesencriptador.dataset.content = "Ctrl + q"
-        btnEncriptador.dataset.content = "Ctrl + m"
+        btnCopy.dataset.content = ""
+        btnDesencriptador.dataset.content = ""
+        btnEncriptador.dataset.content = ""
     }
 }
 
