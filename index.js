@@ -30,7 +30,7 @@ btnTheme.onclick = () => {
         logo.src = `${location.origin}/img/logo-alura.png`
         muñeco.src = `${location.origin}/img/Muñeco.png`
         document.documentElement.style.setProperty("--background", "#F3F5FC")
-        document.documentElement.style.setProperty("--color-bg-botones", "#0A3871")
+        document.documentElement.style.setProperty("--color-bg-botones","#0A3871")
         document.documentElement.style.setProperty("--color-border", "#0A3871")
         document.documentElement.style.setProperty("--color-contrast-claro", "#D8DFE8")
         document.documentElement.style.setProperty("--color-contrast-oscuro", "#fff")
@@ -38,15 +38,17 @@ btnTheme.onclick = () => {
 
         return
 
+    }else{
+
+        theme.src = `${location.origin}/img/themeDark.png`
+        logo.src = `${location.origin}/img/image.png`
+        muñeco.src = `${location.origin}/img/muñeco-b&n.png`
+        document.documentElement.style.setProperty("--background", "#292929")
+        document.documentElement.style.setProperty("--color-bg-botones", "#45494b")
+        document.documentElement.style.setProperty("--color-border", "#A0a7ac")
+        document.documentElement.style.setProperty("--color-contrast-claro", "#C8CDD0")
+        document.documentElement.style.setProperty("--color-contrast-oscuro", "#000")
     }
-    theme.src = `${location.origin}/img/themeDark.png`
-    logo.src = `${location.origin}/img/image.png`
-    muñeco.src = `${location.origin}/img/muñeco-b&n.png`
-    document.documentElement.style.setProperty("--background", "#292929")
-    document.documentElement.style.setProperty("--color-bg-botones", "#45494b")
-    document.documentElement.style.setProperty("--color-border", "#A0a7ac")
-    document.documentElement.style.setProperty("--color-contrast-claro", "#C8CDD0")
-    document.documentElement.style.setProperty("--color-contrast-oscuro", "#000")
 
 
 
