@@ -55,6 +55,7 @@ function verificaSiEstaEnCelular() {
         btnCopy.dataset.content = "hola"
         btnDesencriptador.dataset.content = "hola"
         btnEncriptador.dataset.content = ""
+        document.body.style.background = "white"
     } else {
 
         btnCopy.dataset.content = ""
@@ -62,7 +63,6 @@ function verificaSiEstaEnCelular() {
         btnEncriptador.dataset.content = ""
     }
 }
-
 const keys = {
     e: "enter",
     i: "imes",
