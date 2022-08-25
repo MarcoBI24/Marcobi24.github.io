@@ -23,6 +23,7 @@ const logo = document.getElementById("logo-img")
 const muñeco = document.getElementById("muñeco-img")
 const contenedorSection2 = document.getElementById("section2")
 window.onload = verificaSiEstaEnCelular
+// verificaSiEstaEnCelular()
 btnTheme.onclick = () => {
     if (!btnTheme.checked) {
         theme.src = `${location.origin}/img/themeLight.png`
@@ -52,15 +53,15 @@ btnTheme.onclick = () => {
 }
 function verificaSiEstaEnCelular() {
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-        btnCopy.dataset.content = "hola"
-        btnDesencriptador.dataset.content = "hola"
-        btnEncriptador.dataset.content = ""
-        document.body.style.background = "white"
-    } else {
-
         btnCopy.dataset.content = ""
         btnDesencriptador.dataset.content = ""
         btnEncriptador.dataset.content = ""
+        console.log(true);
+    } else {
+        console.log(false);
+        btnCopy.dataset.content = "Ctrl + c"
+        btnDesencriptador.dataset.content = "Ctrl + q"
+        btnEncriptador.dataset.content = "Ctrl + m"
     }
 }
 const keys = {
