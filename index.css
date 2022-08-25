@@ -733,7 +733,7 @@ body{
         justify-content: start;
     }
     .label-checkbox{
-        background-color: var(--color-bg-botones);
+        background-color: #ff6611;
 
         display: flex;
         width: 3rem;
