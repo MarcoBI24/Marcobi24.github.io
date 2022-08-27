@@ -234,6 +234,14 @@ body{
             transparent 270deg 360deg
         )
         1 stretch;
+        -moz-border-image: conic-gradient(
+            from var(--angle),
+            transparent 0deg 90deg,
+            transparent 90deg 180deg,
+            var(--color) 180deg 270deg,
+            transparent 270deg 360deg
+        )
+        1 stretch;
     }
  
         #section-2-conteiner-msg-vacio{
