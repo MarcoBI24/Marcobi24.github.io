@@ -283,7 +283,7 @@ body{
             
         }
         
-       @supports (--angle: 0deg){
+       /* @supports (--angle: 0deg){ */
             @property --angle {
                 syntax: '<angle>';
                 initial-value: 0deg;
@@ -295,7 +295,7 @@ body{
                     
                     }
                 }  
-       }
+       /* } */
         .output::-webkit-scrollbar{/* stilos para el scroll del output */  
             background-color: transparent;
             width: 5px;
