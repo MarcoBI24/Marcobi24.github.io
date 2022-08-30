@@ -1,0 +1,84 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?wyw8cr');
+  src:  url('fonts/icomoon.eot?wyw8cr#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?wyw8cr') format('truetype'),
+    url('fonts/icomoon.woff?wyw8cr') format('woff'),
+    url('fonts/icomoon.svg?wyw8cr#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak-as: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-battery-1:before {
+  content: "\e900";
+}
+.icon-battery-quarter:before {
+  content: "\e900";
+}
+.icon-battery1:before {
+  content: "\e901";
+}
+.icon-battery-4:before {
+  content: "\e901";
+}
+.icon-battery-full:before {
+  content: "\e901";
+}
+.icon-battery-charging:before {
+  content: "\e902";
+}
+.icon-battery:before {
+  content: "\e903";
+}
+.icon-location:before {
+  content: "\e947";
+}
+.icon-location2:before {
+  content: "\e948";
+}
+.icon-display:before {
+  content: "\e956";
+}
+.icon-meter:before {
+  content: "\e9a6";
+}
+.icon-arrow-down:before {
+  content: "\ea36";
+}
+.icon-chrome:before {
+  content: "\ead9";
+}
+.icon-firefox:before {
+  content: "\eada";
+}
+.icon-ie:before {
+  content: "\eadb";
+}
+.icon-opera:before {
+  content: "\eade";
+}
+.icon-mouse:before {
+  content: "\e904";
+}
+.icon-pc:before {
+  content: "\e904";
+}
+.icon-computer:before {
+  content: "\e904";
+}
