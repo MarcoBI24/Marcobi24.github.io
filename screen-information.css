@@ -94,12 +94,42 @@ body{
                 height: 0;
                 overflow: hidden;
                 max-height: min-content;
-                /* display: none; */
-                /* position: relative; */
-                /* top: -50px;
-                background-color: antiquewhite;
-                transition: all 2s; */
+           
             }
+            fieldset{
+                border: 2px solid;
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                padding: 15px;
+            }
+            legend{
+                border: 1px solid;
+            }
+                #ejeX, #ejeY{
+                    /* display: block; */
+                    background-color: transparent;
+                    outline: none;
+                    border: 1px solid;
+                    border-radius: 1vw;
+                    padding: 5px;
+                    font-size: calc(.8vw + .5rem);
+                    text-align: center;
+                    width: 80px;
+                    max-width: min-content;
+                }
+                #ejeXP, #ejeYP, #ejeXC, #ejeYC{
+                    background-color: transparent;
+                    outline: none;
+                    border: 1px solid;
+                    border-radius: 1vw;
+                    padding: 5px;
+                    font-size: calc(.8vw + .5rem);
+                    text-align: center;
+                    width: 80px;
+                    max-width: min-content;
+
+                }
                 
 .conteiner-main-details{
     background-color: #47e;

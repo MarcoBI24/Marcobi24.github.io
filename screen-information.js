@@ -36,26 +36,33 @@ const resolution = document.getElementById("resolution")
 const aspectRatio = document.getElementById("aspectRatio")
 const devicePixelRatio = document.getElementById("devicePixelRatio")
 const colorDepth = document.getElementById("colorDepth")
+// constantes para el mouse X y Y
+const ejeX = document.getElementById("ejeX")
+const ejeY = document.getElementById("ejeY")
+const ejeXP = document.getElementById("ejeXP")
+const ejeYP = document.getElementById("ejeYP")
+const ejeXC = document.getElementById("ejeXC")
+const ejeYC = document.getElementById("ejeYC")
 
-//             Screen:
-//   Orientation (Live):Landscape
-//   Resolution: 1920 x 1080 (pixels)
-//   Aspect Ratio:16:9
-//   Device Pixel Ratio:1
-//   Color Depth:24-bit
-
-function addInfoScreen() {
-
-  devicePixelRatio.innerHTML = window.devicePixelRatio
-  colorDepth.innerHTML = window.screen.colorDepth
-  window.onresize = () => {
-    orientation.innerHTML = window.screen.orientation.type
-    resolution.innerHTML = `${window.screen.width} x ${window.screen.height}`
-    aspectRatio.innerHTML = getAspectRatio(window.screen.width, window.screen.height)
-  }
+window.onmousemove  = (e)=>{
+  ejeX.value = e.x
+  ejeY.value = e.y
+  ejeXP.value = scrollX + e.x
+  ejeYP.value = scrollY + e.y
 }
-console.log(window);
+window.onclick = (e)=>{
+  ejeXC.value = e.x
+  ejeYC.value = e.y
+}
+
 addInfoScreen()
+
+
+
+
+
+
+
 
 
 
@@ -78,13 +85,16 @@ getResponse().then((data) => {
 }).catch((error) => {
   console.error(`Ocurrio este error ${error}`);
 })
+function addInfoScreen() {
 
-
-
-
-
-
-
+  devicePixelRatio.innerHTML = window.devicePixelRatio
+  colorDepth.innerHTML = window.screen.colorDepth
+  window.onresize = () => {
+    orientation.innerHTML = window.screen.orientation.type
+    resolution.innerHTML = `${window.screen.width} x ${window.screen.height}`
+    aspectRatio.innerHTML = getAspectRatio(window.screen.width, window.screen.height)
+  }
+}
 async function getResponse() {
 
   let response = await fetch(urlIp)
