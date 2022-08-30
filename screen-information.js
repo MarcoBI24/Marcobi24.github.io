@@ -37,19 +37,22 @@ const aspectRatio = document.getElementById("aspectRatio")
 const devicePixelRatio = document.getElementById("devicePixelRatio")
 const colorDepth = document.getElementById("colorDepth")
 
- //             Screen:
- //   Orientation (Live):Landscape
- //   Resolution: 1920 x 1080 (pixels)
- //   Aspect Ratio:16:9
- //   Device Pixel Ratio:1
- //   Color Depth:24-bit
+//             Screen:
+//   Orientation (Live):Landscape
+//   Resolution: 1920 x 1080 (pixels)
+//   Aspect Ratio:16:9
+//   Device Pixel Ratio:1
+//   Color Depth:24-bit
 
 function addInfoScreen() {
+
+  devicePixelRatio.innerHTML = window.devicePixelRatio
+  colorDepth.innerHTML = window.screen.colorDepth
+  window.onresize = () => {
     orientation.innerHTML = window.screen.orientation.type
     resolution.innerHTML = `${window.screen.width} x ${window.screen.height}`
-    aspectRatio.innerHTML = getAspectRatio(window.screen.width,window.screen.height)
-    devicePixelRatio.innerHTML = window.devicePixelRatio 
-    colorDepth.innerHTML = window.screen.colorDepth
+    aspectRatio.innerHTML = getAspectRatio(window.screen.width, window.screen.height)
+  }
 }
 console.log(window);
 addInfoScreen()
