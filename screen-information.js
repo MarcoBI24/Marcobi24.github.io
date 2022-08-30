@@ -29,14 +29,24 @@ const city = document.getElementById("city")
 const latitudeLongitude = document.getElementById("latitude-longitude")
 const accuracy = document.getElementById("accuracy")
 
-console.log(CDATASection);
+// API para obtener el IP- Pais - Ciudad - Localizacion https://api64.ipify.org
+const url = "https://api64.ipify.org"
+fetch(url)
+  .then(response => response.text())
+  .then(data => {
+    const json = JSON.stringify(data);
+    console.log(json);
+  });
+// function getIP() {
+//     new Promise((resolve, reject) => {
+//         resolve(JSON.stringify(url))
+//     })
+// }
+// const address = async ()=>{
+//     return await getIP()
+// }
 
-
-
-
-
-
-
+// address().then(value => console.log(value))
 
 
 
