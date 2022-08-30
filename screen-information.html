@@ -64,9 +64,34 @@
 
                     </div>
                     <div class="conteiner-info-hidden" id="hidden">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, deserunt aspernatur deleniti consequatur aliquam tempore fugiat nostrum? Odit quam beatae inventore repudiandae deleniti, dignissimos, blanditiis laboriosam sed culpa mollitia repellat!
-                        Vero labore assumenda, aut illum veritatis est reprehenderit voluptatem odio consectetur autem debitis vitae eius distinctio pariatur molestiae. Voluptates nesciunt aperiam reiciendis adipisci aliquam dicta maiores, repellendus vero eos? Molestiae?
-                        Itaque impedit, magni placeat quam sit omnis. Modi officia magnam, libero eos a, accusamus totam ut reiciendis, delectus culpa obcaecati labore temporibus maiores omnis et veniam sed? Eius, saepe magni.
+                        <table>
+                            <tr>
+                                <th>Orientation</th>
+
+                                <td id="orientation"></td>
+                            </tr>
+                            <tr>
+                                <th>Resolution</th>
+
+                                <td id="resolution"></td>
+                            </tr>
+                            <tr>
+                                <th>Aspect Ratio</th>
+
+                                <td id="aspectRatio"></td>
+                            </tr>
+                            <tr>
+                                <th>Device Pixel Ratio</th>
+
+                                <td id="devicePixelRatio"></td>
+                            </tr>
+                            <tr>
+                                <th>Color Depth</th>
+
+                                <td id="colorDepth"></td>
+                            </tr>
+                            
+                        </table>
                      </div>
                 </li>
                 <li class="item-info">
@@ -160,7 +185,8 @@
       </script>
       
       <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
-    <script src="./screen-information.js"></script>
+    <script type="module"  src="./screen-information.js"></script>
+    <script type="module" src="./aspect-ratio.js"></script>
 </body>
 
 </html>
