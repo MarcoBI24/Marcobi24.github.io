@@ -44,26 +44,145 @@ const ejeYP = document.getElementById("ejeYP")
 const ejeXC = document.getElementById("ejeXC")
 const ejeYC = document.getElementById("ejeYC")
 
-window.onmousemove  = (e)=>{
+const selectBtn = document.getElementById("strategy")
+const $ = id => document.getElementById(id)
+const btnTest = $("test")
+let urlAPIInput = $("urlApi")
+const firstContentFulPaint = $("time-FC")
+let iconFirstContentFulPaint = $("icon-FC")
+const speedIndex = $("time-SI")
+let iconSpeedIndex = $("icon-SI")
+const largestContentFulPaint = $("time-LC")
+let iconLargestContentFulPaint = $("icon-LC")
+const timeToInteractive = $("time-TTI")
+let iconTimeToInteractive = $("icon-TTI")
+const totalBlockingTime = $("time-TBT")
+let iconTotalBlockingTime = $("icon-TBT")
+const cumulativeLayoutShift = $("time-CLS")
+let iconCumulativeLayoutShift = $("icon-CLS")
+
+let square1 = $("square-1")
+let square2 = $("square-2")
+let square3 = $("square-3")
+//  verde - naranja - rojo
+//  rojo - verde - naranja
+//  naranja - rojo - verde
+//  verde - naranja - rojo
+
+
+let id = setInterval(() => {
+  console.log(square1.style.background);
+  console.log(square2.style.background);
+  console.log(square3.style.background);
+  if (square1.style.background == "rgb(12, 206, 107)") {
+    square1.style.background = "rgb(255, 65, 129)"
+  }else if (square1.style.background == "rgb(255, 65, 129)") {
+    square1.style.background = "rgb(255, 164, 0)"
+  }else{
+    square1.style.background = "rgb(12, 206, 107)"
+  }
+  if (square2.style.background == "rgb(255, 164, 0)") {
+    square2.style.background = "rgb(12, 206, 107)"
+  }else if (square2.style.background == "rgb(12, 206, 107)") {
+    square2.style.background = "rgb(255, 65, 129)"
+  }else{
+    square2.style.background = "rgb(255, 164, 0)"
+  }
+  if (square3.style.background == "rgb(255, 65, 129)") {
+    square3.style.background = "rgb(255, 164, 0)"
+  }else if (square3.style.background == "rgb(255, 164, 0)") {
+    square3.style.background = "rgb(12, 206, 107)"
+  }else{
+    square3.style.background = "rgb(255, 65, 129)"
+  }
+}, 100);
+window.onmousemove = (e) => {
   ejeX.value = e.x
   ejeY.value = e.y
   ejeXP.value = scrollX + e.x
   ejeYP.value = scrollY + e.y
 }
-window.onclick = (e)=>{
+window.onclick = (e) => {
   ejeXC.value = e.x
   ejeYC.value = e.y
 }
-
 addInfoScreen()
 
 
-fetch("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://developers.google.com&key=AIzaSyCfkc_U3EL3kkQr6rpfXasonInsNJ_xJCM&strategy=mobile")
-.then(resolve => resolve = resolve.text()).then(d => console.log(JSON.parse(d)))
+
+
+async function getResolve(url) {
+  return fetch(url).then(resolve => {
+    resolve = resolve.text()
+    return resolve
+  })
+
+}
+async function setResolveToPerformance(url = "https://www.google.com", strategy = "desktop") {
+  // hacer paara que verifique el tiempo de cada element y si esta por arriba de 1 segundo poner rojo y cambiar el icono
+  // hacer que mientras cargue el fetch haga una animacion de carga en cada elemento
+  let urlTest = url
+  let URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${urlTest}&key=AIzaSyCfkc_U3EL3kkQr6rpfXasonInsNJ_xJCM&strategy=${strategy}`
+
+  let data = await getResolve(URL)
+  data = JSON.parse(data)
+  console.log(data);
+
+  function setTime(data,element, property,iconElement) {
+      if ($$(data, property).score * 100 >= 90) {
+        element.style.color = "#0cce6b"
+        iconElement.style.background = "#0cce6b"
+      }else if($$(data, property).score * 100 >= 50){
+        element.style.color = "#ffa400"
+        iconElement.style.background = "#ffa400"
+      }
+      else{
+        element.style.color = "#ff4181"
+        iconElement.style.background = "#ff4181"
+      }
+      return $$(data,property).displayValue;
+    
+  }
+
+  firstContentFulPaint.innerHTML = setTime(data,firstContentFulPaint,"first-contentful-paint",iconFirstContentFulPaint)
+
+  speedIndex.innerHTML = setTime(data,speedIndex,"speed-index",iconSpeedIndex)
+
+  largestContentFulPaint.innerHTML = setTime(data,largestContentFulPaint,"largest-contentful-paint",iconLargestContentFulPaint)
+
+  timeToInteractive.innerHTML =setTime(data,timeToInteractive,"interactive",iconTimeToInteractive)
+
+  totalBlockingTime.innerHTML =setTime(data,totalBlockingTime,"total-blocking-time",iconTotalBlockingTime)
+
+
+  cumulativeLayoutShift.innerHTML = setTime(data,cumulativeLayoutShift,"cumulative-layout-shift",iconCumulativeLayoutShift)
+
+}
+setResolveToPerformance()
+function $$(obj,index) {
+  return obj.lighthouseResult.audits[index]
+  }
+btnTest.onclick = () => {
+  console.log(selectBtn.value);
+  setResolveToPerformance(urlAPIInput.value,selectBtn.value)
+  
+  urlAPIInput.value = ""
+}
 
 
 
-
+// icon-FC
+// time-FC
+// icon-SI
+// time-SI
+// icon-LC
+// time-LC
+// icon-TTI
+// time-TTI
+// icon-TBT
+// time-TBT
+// icon-CLS
+// time-CLS
 
 
 

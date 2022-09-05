@@ -144,17 +144,14 @@
                     </div>
                     <div class="conteiner-info-hidden" id="hidden">
                        <div class="contenedor-info-performance">
-                        <label >
-                            Introduce la url de la página que quieres testear
-                            <input type="text" class="urlApi" id="urlApi" >
-                        </label>
+                        
                         <div class="contenedor-grid-result">
                             <div class="grid-item" id="firstContentful">
                                 <img class="icon-element" id="icon-FC">
                                 <div class="title-element">
                                     First Contentful Paint
                                 </div>
-                                <div class="seconds-element" id="time">
+                                <div class="seconds-element" id="time-FC">
                                     0.0 s
                                 </div>
                             </div>
@@ -163,7 +160,7 @@
                                 <div class="title-element">
                                     Speed Index
                                 </div>
-                                <div class="seconds-element" id="time">
+                                <div class="seconds-element" id="time-SI">
                                     0.0 s
                                 </div>
                             </div>
@@ -172,7 +169,7 @@
                                 <div class="title-element">
                                     Largest Contentful Paint
                                 </div>
-                                <div class="seconds-element" id="time">
+                                <div class="seconds-element" id="time-LC">
                                     0.0 s
                                 </div>
                             </div>
@@ -181,7 +178,7 @@
                                 <div class="title-element">
                                     Time to Interactive
                                 </div>
-                                <div class="seconds-element" id="time">
+                                <div class="seconds-element" id="time-TTI">
                                     0.0 s
                                 </div>
                             </div>
@@ -190,7 +187,7 @@
                                 <div class="title-element">
                                     Total Blocking Time
                                 </div>
-                                <div class="seconds-element" id="time">
+                                <div class="seconds-element" id="time-TBT">
                                     0.0 s
                                 </div>
                             </div>
@@ -199,12 +196,27 @@
                                 <div class="title-element">
                                     Cumulative Layout Shift
                                 </div>
-                                <div class="seconds-element" id="time">
+                                <div class="seconds-element" id="time-CLS">
                                     0.0 s
                                 </div>
                             </div>
+                            <div class="loading-element">
+                                <div id="square-1"></div>
+                                <div id="square-2"></div>
+                                <div id="square-3"></div>
+                            </div>
+                            
                         </div>
-
+                        <label class="label-input-url" >
+                            Introduce la url de la página que quieres testear
+                            <input type="text" class="urlApi" id="urlApi" placeholder="https://example.com" >
+                            <select name="" id="strategy">
+                                <option value="desktop" id="desktop">Desktop</option>
+                                <option value="mobile" >Mobile</option>
+                                
+                            </select>
+                            <button id="test">Test</button>
+                        </label>
 
                        </div>
                      </div>
