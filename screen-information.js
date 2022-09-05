@@ -58,8 +58,8 @@ window.onclick = (e)=>{
 addInfoScreen()
 
 
-
-
+fetch("https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://developers.google.com&key=AIzaSyCfkc_U3EL3kkQr6rpfXasonInsNJ_xJCM&strategy=mobile")
+.then(resolve => resolve = resolve.text()).then(d => console.log(JSON.parse(d)))
 
 
 

@@ -1,0 +1,2 @@
+para obtener el performance:
+-- obtenerlo mediante el objteo window.permofanc.
