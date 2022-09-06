@@ -60,7 +60,7 @@ const totalBlockingTime = $("time-TBT")
 let iconTotalBlockingTime = $("icon-TBT")
 const cumulativeLayoutShift = $("time-CLS")
 let iconCumulativeLayoutShift = $("icon-CLS")
-
+let elementAnimationLoading = $("loading-element")
 let square1 = $("square-1")
 let square2 = $("square-2")
 let square3 = $("square-3")
@@ -69,33 +69,43 @@ let square3 = $("square-3")
 //  naranja - rojo - verde
 //  verde - naranja - rojo
 
+let id
+function startLoadingAnimation() {
+  id = setInterval(() => {
+    console.log(square1.style.background);
+    console.log(square2.style.background);
+    console.log(square3.style.background);
+    if (square1.style.background == "rgb(12, 206, 107)") {
+      square1.style.background = "rgb(255, 65, 129)"
+    }else if (square1.style.background == "rgb(255, 65, 129)") {
+      square1.style.background = "rgb(255, 164, 0)"
+    }else{
+      square1.style.background = "rgb(12, 206, 107)"
+    }
+  
+    if (square2.style.background == "rgb(255, 164, 0)") {
+      square2.style.background = "rgb(12, 206, 107)"
+    }else if (square2.style.background == "rgb(12, 206, 107)") {
+      square2.style.background = "rgb(255, 65, 129)"
+    }else{
+      square2.style.background = "rgb(255, 164, 0)"
+    }
+    if (square3.style.background == "rgb(255, 65, 129)") {
+      square3.style.background = "rgb(255, 164, 0)"
+    }else if (square3.style.background == "rgb(255, 164, 0)") {
+      square3.style.background = "rgb(12, 206, 107)"
+    }else{
+      square3.style.background = "rgb(255, 65, 129)"
+    }
+  }, 400);
+}
+function finishLoadingAnimation() {
+  clearInterval(id)
+  btnTest.style.color = "#fff"
+  elementAnimationLoading.style.display = "none"
+}
 
-let id = setInterval(() => {
-  console.log(square1.style.background);
-  console.log(square2.style.background);
-  console.log(square3.style.background);
-  if (square1.style.background == "rgb(12, 206, 107)") {
-    square1.style.background = "rgb(255, 65, 129)"
-  }else if (square1.style.background == "rgb(255, 65, 129)") {
-    square1.style.background = "rgb(255, 164, 0)"
-  }else{
-    square1.style.background = "rgb(12, 206, 107)"
-  }
-  if (square2.style.background == "rgb(255, 164, 0)") {
-    square2.style.background = "rgb(12, 206, 107)"
-  }else if (square2.style.background == "rgb(12, 206, 107)") {
-    square2.style.background = "rgb(255, 65, 129)"
-  }else{
-    square2.style.background = "rgb(255, 164, 0)"
-  }
-  if (square3.style.background == "rgb(255, 65, 129)") {
-    square3.style.background = "rgb(255, 164, 0)"
-  }else if (square3.style.background == "rgb(255, 164, 0)") {
-    square3.style.background = "rgb(12, 206, 107)"
-  }else{
-    square3.style.background = "rgb(255, 65, 129)"
-  }
-}, 100);
+
 window.onmousemove = (e) => {
   ejeX.value = e.x
   ejeY.value = e.y
@@ -115,6 +125,9 @@ async function getResolve(url) {
   return fetch(url).then(resolve => {
     resolve = resolve.text()
     return resolve
+  }).catch((error)=>{
+    console.log(error);
+    finishLoadingAnimation()
   })
 
 }
@@ -156,7 +169,7 @@ async function setResolveToPerformance(url = "https://www.google.com", strategy 
 
 
   cumulativeLayoutShift.innerHTML = setTime(data,cumulativeLayoutShift,"cumulative-layout-shift",iconCumulativeLayoutShift)
-
+  finishLoadingAnimation()
 }
 setResolveToPerformance()
 function $$(obj,index) {
@@ -164,6 +177,9 @@ function $$(obj,index) {
   }
 btnTest.onclick = () => {
   console.log(selectBtn.value);
+  btnTest.style.color = "#999"
+  elementAnimationLoading.style.display = "flex"
+  startLoadingAnimation()
   setResolveToPerformance(urlAPIInput.value,selectBtn.value)
   
   urlAPIInput.value = ""

@@ -91,7 +91,7 @@ body{
 
                 }
             .conteiner-info-hidden{
-                height: min-content; /* POR EL MOMENTO*/
+                height: 0; /* POR EL MOMENTO*/
                 overflow: hidden;
                 max-height: min-content;
            
@@ -149,6 +149,10 @@ body{
                         font-size: 20px;
                         letter-spacing: 3px;
                         color: #fff;
+                        position: relative;
+                        /* color: #999; */
+                        transition: color .5s, background .5s;
+
                     }
                     .urlApi{
                         outline: none;
@@ -207,10 +211,15 @@ body{
 
                 }
                 .loading-element{
-                    /* background-color: blue; */
-                    display: flex;
+                    /* display: ; */
+                    background-color: transparent;
+                    display: none;
                     padding: 10px;
                     gap: 5px;
+                    position: absolute;
+                    inset: 0;
+                    justify-content: center;
+                    align-items: center;
                 }
                 #square-1{
                     width: 10px;
