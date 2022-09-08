@@ -55,6 +55,8 @@ navigator.getBattery().then((r) => {
     } else {
       loadingText.style.display = "none"
     }
+    timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
+    timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
   }
 
 
