@@ -39,10 +39,12 @@ navigator.getBattery().then((r) =>{
   }
 
   percentageText.innerHTML = `${porcentageBattery} %`
-  if (batteryStatus.charging) {
-    loadingText.style.display = "block"    
-  }else{
-    loadingText.style.display = "none"    
+  batteryStatus.onchargingchange = ()=>{
+    if (batteryStatus.charging) {
+      loadingText.style.display = "block"    
+    }else{
+      loadingText.style.display = "none"    
+    }
   }
 
 
