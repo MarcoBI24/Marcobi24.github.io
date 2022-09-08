@@ -23,7 +23,7 @@ function crearCargaBlock(color) {
 
 navigator.getBattery().then((r) => {
   batteryStatus = r
-  let porcentageBattery = batteryStatus.level * 100
+  let porcentageBattery = Math.floor(batteryStatus.level * 100)
   let cantidadDeCarga = Math.floor(porcentageBattery / 20)
   let colorCarga = calcularCantidadDeCarga(cantidadDeCarga)
   if (cantidadDeCarga == 0) {
