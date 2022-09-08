@@ -356,15 +356,19 @@ body{
 
                 
 .conteiner-main-details{
-    background-color: #47e;
+    background-color: rgb(122, 155, 231);
     flex: 1 1 100%;
     display: flex;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 1px 13px 62px -6px rgba(0,0,0,0.52);
+    -webkit-caja-sombra: 1px 13px 62px -6px rgba(0,0,0,0.52);
+    -moz-caja-sombra: 1px 13px 62px -6px rgba(0,0,0,0.52);
 }
 
     table{
         width: 100%;
-        border: 1px solid;
+        /* border: 1px solid; */
         /* margin: 10px; */
     }   
         tr{
@@ -375,7 +379,12 @@ body{
                 /* background-color: #47e; */
                 padding: 10px;
                 text-align: start;
+                font-family: "Chakra Petch";
+
             }
             td{
+                font-family: "Chakra Petch";
+                letter-spacing: 2px;
+                font-size: calc(.5rem + 1.2vw);
                 text-align: center;
             }

@@ -1,9 +1,6 @@
 import { getAspectRatio } from "./aspect-ratio.js";
 const $ = id => document.getElementById(id)
-if (!navigator.getBattery) {
 
-  document.body.innerHTML = "No FUNCIONA "
-}
 
 
 let percentageText = $("percentage")
@@ -21,87 +18,7 @@ function crearCargaBlock(color) {
   batteryContenedor.appendChild(div)
 }
 
-navigator.getBattery().then((r) => {
-  batteryStatus = r
-  let porcentageBattery = Math.floor(batteryStatus.level * 100)
-  let cantidadDeCarga = Math.floor(porcentageBattery / 20)
-  let colorCarga = calcularCantidadDeCarga(cantidadDeCarga)
-  if (cantidadDeCarga == 0) {
-    cantidadDeCarga = 1
-  }
-  for (let i = 0; i < cantidadDeCarga; i++) {
-    crearCargaBlock(colorCarga)
-  }
 
-  timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
-  timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
-  batteryStatus.onchargingtimechange = ()=>{
-    timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
-
-  }
-  batteryStatus.ondischargingtimechange = ()=>{
-    timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
-  }
-
-
-  
-  percentageText.innerHTML = `${porcentageBattery} %`
-  if (batteryStatus.charging) {
-    loadingText.style.display = "block"
-  }
-  batteryStatus.onchargingchange = () => {
-    if (batteryStatus.charging) {
-      loadingText.style.display = "block"
-    } else {
-      loadingText.style.display = "none"
-    }
-    timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
-    timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
-  }
-
-
-
-  console.log(batteryStatus);
-  batteryStatus.onlevelchange = () => {
-    percentageText.innerHTML = `${porcentageBattery} %`
-  }
-  function calcularTiempoDeCarga(tiempo) {
-    if (tiempo == "Infinity") {
-      return "No esta cargando"
-    }
-    let time = tiempo / 60
-    let tiempoEnMin = Math.floor(time)
-    let tiempoEnSeg = Math.floor((time - tiempoEnMin) * 60)
-    return `${tiempoEnMin} : ${tiempoEnSeg}`
-
-  }
-  function calcularTiempoDeDescarga(tiempo) {
-    if (tiempo == "Infinity") {
-      return "Esta cargando"
-    }
-    let time = tiempo / 60
-    let tiempoEnMin = Math.floor(time)
-    let tiempoEnSeg = Math.floor((time - tiempoEnMin) * 60)
-    return `${tiempoEnMin} : ${tiempoEnSeg}`
-
-  }
-  function calcularCantidadDeCarga(cantidadDeCarga) {
-    let colorCarga
-    if (cantidadDeCarga == 1 || cantidadDeCarga == 0) {
-      colorCarga = "var(--color-red)"
-      loadRay.src = "./img/rayDownload.png"
-      cantidadDeCarga = 1
-    } else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
-      colorCarga = "var(--color-orange)"
-      loadRay.src = "./img/rayNoLoad.png"
-    } else {
-      colorCarga = "var(--color-green)"
-      loadRay.src = "./img/rayLoading.png"
-    }
-    return colorCarga
-  }
-  
-})
 
 
 
@@ -127,6 +44,19 @@ btns.forEach(btn => {
 // API para obtener el IP- Pais - Ciudad - Localizacion https://hutils.loxal.net/whois
 // Obtener la IP
 const urlIp = "https://hutils.loxal.net/whois"
+
+
+const fecha = $("td-fecha")
+const hora = $("td-hora")
+const sO = $("td-so")
+const screenInfo = $("td-screen")
+const browser = $("td-browser")
+console.log(navigator.userAgent);
+sO.innerHTML = navigator.platform
+browser.innerHTML = getBrowserInfo()
+screenInfo.innerHTML = `${document.body.clientWidth} x ${document.body.clientHeight}`
+
+const ipAddress = $("td-ip")
 
 const country = document.getElementById("country")
 const region = document.getElementById("region")
@@ -304,7 +234,8 @@ btnTest.onclick = () => {
 getResponse().then((data) => {
   data = JSON.parse(data)
   locationInfo = data
-  addInfoLocation(locationInfo)
+  console.log(locationInfo);
+  ipAddress.innerHTML = locationInfo.ip
 }).catch((error) => {
   console.error(`Ocurrio este error ${error}`);
 })
@@ -315,6 +246,7 @@ function addInfoScreen() {
   window.onresize = () => {
     orientation.innerHTML = window.screen.orientation.type
     resolution.innerHTML = `${window.screen.width} x ${window.screen.height}`
+    screenInfo.innerHTML = `${window.screen.width} x ${window.screen.height}`
     aspectRatio.innerHTML = getAspectRatio(window.screen.width, window.screen.height)
   }
 }
@@ -357,6 +289,12 @@ function addInfoLocation(locationInfo) {
 
 
 
+// td-fecha
+// td-hora
+// td-so
+// td-browser
+// td-screen
+// td-ip
 
 
 
@@ -365,11 +303,135 @@ function addInfoLocation(locationInfo) {
 
 
 
+getDate()
+setInterval(() => {
+  const hoy = new Date();
+  let hour = hoy.getHours();
+  let min = hoy.getMinutes();
+  let meridiano = "am"
+  if (hour > 12) {
+    meridiano = "pm"
+  }
+  if (hour == 0) {
+    let dateNow = hoy.toLocaleDateString()
+    fecha.innerHTML = dateNow
+  }
+  hora.innerHTML = `${hour} : ${min} ${meridiano}`
+}, 1000);
+function getDate() {
+  const hoy = new Date();
+  let dateNow = hoy.toLocaleDateString()
+  fecha.innerHTML = dateNow
+  let hour = hoy.getHours();
+  let min = hoy.getMinutes();
+  let meridiano = "am"
+  if (hour > 12) {
+    meridiano = "pm"
+  }
+  hora.innerHTML = `${hour} : ${min} ${meridiano}`
+
+}
+
+
+navigator.getBattery().then((r) => {
+  batteryStatus = r
+  let porcentageBattery = Math.floor(batteryStatus.level * 100)
+  let cantidadDeCarga = Math.floor(porcentageBattery / 20)
+  let colorCarga = calcularCantidadDeCarga(cantidadDeCarga)
+  if (cantidadDeCarga == 0) {
+    cantidadDeCarga = 1
+  }
+  for (let i = 0; i < cantidadDeCarga; i++) {
+    crearCargaBlock(colorCarga)
+  }
+
+  timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
+  timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
+  batteryStatus.onchargingtimechange = () => {
+    timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
+
+  }
+  batteryStatus.ondischargingtimechange = () => {
+    timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
+  }
 
 
 
+  percentageText.innerHTML = `${porcentageBattery} %`
+  if (batteryStatus.charging) {
+    loadingText.style.display = "block"
+  }
+  batteryStatus.onchargingchange = () => {
+    if (batteryStatus.charging) {
+      loadingText.style.display = "block"
+    } else {
+      loadingText.style.display = "none"
+    }
+    timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
+    timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
+  }
 
 
+
+  console.log(batteryStatus);
+  batteryStatus.onlevelchange = () => {
+    percentageText.innerHTML = `${porcentageBattery} %`
+  }
+  function calcularTiempoDeCarga(tiempo) {
+    if (tiempo == "Infinity") {
+      return "No esta cargando"
+    }
+    let time = tiempo / 60
+    let tiempoEnMin = Math.floor(time)
+    let tiempoEnSeg = Math.floor((time - tiempoEnMin) * 60)
+    return `${tiempoEnMin} : ${tiempoEnSeg}`
+
+  }
+  function calcularTiempoDeDescarga(tiempo) {
+    if (tiempo == "Infinity") {
+      return "Esta cargando"
+    }
+    let time = tiempo / 60
+    let tiempoEnMin = Math.floor(time)
+    let tiempoEnSeg = Math.floor((time - tiempoEnMin) * 60)
+    return `${tiempoEnMin} : ${tiempoEnSeg}`
+
+  }
+  function calcularCantidadDeCarga(cantidadDeCarga) {
+    let colorCarga
+    if (cantidadDeCarga == 1 || cantidadDeCarga == 0) {
+      colorCarga = "var(--color-red)"
+      loadRay.src = "./img/rayDownload.png"
+      cantidadDeCarga = 1
+    } else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
+      colorCarga = "var(--color-orange)"
+      loadRay.src = "./img/rayNoLoad.png"
+    } else {
+      colorCarga = "var(--color-green)"
+      loadRay.src = "./img/rayLoading.png"
+    }
+    return colorCarga
+  }
+
+})
+
+
+
+function getBrowserInfo() {
+  var ua= navigator.userAgent, tem, 
+  M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+ if(/trident/i.test(M[1])){
+      tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+     return 'IE '+(tem[1] || '');
+ }
+ if(M[1]=== 'Chrome'){
+     tem= ua.match(/\b(OPR|Edg)\/(\d+)/);
+     if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+ }
+ M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+ if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+ return M.join(' ');
+};
 
 
 
