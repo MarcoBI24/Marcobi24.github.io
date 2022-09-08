@@ -26,6 +26,7 @@ navigator.getBattery().then((r) =>{
   if (cantidadDeCarga == 1 || cantidadDeCarga == 0) {
       colorCarga = "var(--color-red)"
       loadRay.src = "./img/rayDownload.png"
+      cantidadDeCarga = 1
   }else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
     colorCarga = "var(--color-orange)"
     loadRay.src = "./img/rayNoLoad.png"
