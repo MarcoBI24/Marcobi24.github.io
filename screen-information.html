@@ -8,6 +8,10 @@
     <title>screen-information</title>
     <link rel="stylesheet" href="screen-information.css">
     <link rel="stylesheet" href="style-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">    
+
 </head> 
 
 <body>
@@ -233,14 +237,27 @@
 
                     </div>
                     <div class="conteiner-info-hidden" id="hidden">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa, deserunt aspernatur deleniti consequatur aliquam tempore fugiat nostrum? Odit quam beatae inventore repudiandae deleniti, dignissimos, blanditiis laboriosam sed culpa mollitia repellat!
-                        Vero labore assumenda, aut illum veritatis est reprehenderit voluptatem odio consectetur autem debitis vitae eius distincboriosam sed culpa mollitia repellat!
-                        Vero labore assumenda, aut illum veritatis est reprehenderit voluptatem odio consectetur autem debitis vitae eius distincboriosam sed culpa mollitia repellat!
-                        Vero labore assumenda, aut illum veritatis est reprehenderit voluptatem odio consectetur autem debitis vitae eius distincboriosam sed culpa mollitia repellat!
-                        Vero labore assumenda, aut illum veritatis est reprehenderit voluptatem odio consectetur autem debitis vitae eius distincboriosam sed culpa mollitia repellat!
-                        Vero labore assumenda, aut illum veritatis est reprehenderit voluptatem odio consectetur autem debitis vitae eius distinctio pariatur molestiae. Voluptates nesciunt aperiam reiciendis adipisci aliquam dicta maiores, repellendus vero eos? Molestiae?
-                        Itaque impedit, magni placeat quam sit omnis. Modi officia magnam, libero eos a, accusamus totam ut reiciendis, delectus culpa obcaecati labore temporibus maiores omnis et veniam sed? Eius, saepe magni.
-                     </div>
+                        <div class="contenedor-battery-information">
+                            <div class="contenedor-battery-status">
+                                <div class="contenedor-battery" id="battery-conteiner">
+                                   
+                                </div>
+                                <div class="contenedor-baterry-percentage">
+                                    <h1 id="percentage"></h1>
+                                    <img src="./img/rayLoading.png" id="load-ray">
+                                    <p id="text-loading">Cargando...</p>
+                                </div>
+                            </div>
+                            <div class="contenedor-battery-indications">
+                                <p class="text-subtitle">Se terminará de cargar en: </p>
+                                <p id="timeLoadFinish">00 : 00</p>
+                                <p class="text-subtitle">Se terminará de descargar en: </p>
+                                <p id="timeDownloadFinish">00 : 00</p>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </li>
 
 

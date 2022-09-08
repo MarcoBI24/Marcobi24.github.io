@@ -5,6 +5,11 @@
     box-sizing: border-box;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
+:root{
+    --color-green : #9CE27B;
+    --color-orange: #F9A72E;
+    --color-red: #F95E2E;
+}
 body{
     padding: calc(4vw) calc(8vw);
 
@@ -241,6 +246,113 @@ body{
                     background-color: rgb(255, 65, 129);
                     border-radius: 100%;
                 }
+
+                .contenedor-battery-information{
+                    display: flex;
+                    background-color: #8d8d8d;
+                    flex-direction: column;
+                    padding: 20px;
+                    gap: 20px;
+                }
+                    .contenedor-battery-status{
+                        display: flex;
+                        border: 1px solid var(--color-green);
+                        justify-content: space-around;
+                        flex-wrap: wrap;
+                        gap: 30px;
+                        align-items: center;
+                    }
+                        .contenedor-battery{
+                            width: 250px;
+                            height: 130px;
+                            border-radius: 10px;
+                            background-color: #fff;
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            padding: 10px;
+                            gap: 10px;
+                            /* justify-content: space-around; */
+                        }
+                        .contenedor-battery::after{
+                            content: "";
+                            /* top: 50px; */
+                            /* bottom: 0; */
+                            right: -20px;
+                            border-top-right-radius: 5px;
+                            border-bottom-right-radius: 5px;
+                            position: absolute;
+                            display: block;
+                            width: 20px;
+                            height: 50px;
+                            background-color: #fff;
+                        }
+                            .carga{
+                                width: 40px;
+                                height: 100%;
+                                background-color: var(--color-green);
+                                border-radius: 5px;
+                            }
+
+                            .contenedor-baterry-percentage{
+                                /* border: 2px solid salmon; */
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 10px;
+                            }
+                                #percentage{
+                                    text-align: center;
+                                    font-size: calc(6vw + 1.5rem);
+                                    letter-spacing: 4px;
+                                    font-weight: 900;
+                                    font-family: 'Chakra Petch' ;
+                                    transition: all 1.5s;
+                                }
+
+                                    #load-ray{
+                                        width: 100%;
+                                        max-width: 40px;
+                                        /* border-radius: 10px; */
+                                        /* max-width: max-content; */
+                                    }
+                                        #text-loading{
+                                            display: none;
+                                            font-family: 'Chakra Petch' ;
+                                            font-weight: 500;
+                                            font-size: calc(1rem + 1vw);
+                                            letter-spacing: 2px;
+                                            opacity: .6;
+                                            
+                                        }
+                            .contenedor-battery-indications{
+                                background-color: #777;
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+
+                                padding: 10px;
+                                gap: 10px;
+
+                            }
+                                .text-subtitle{
+                                    font-family: "Chakra Petch";
+                                    font-size: calc(.8rem + 1vw);
+
+                                }
+                                #timeLoadFinish{
+                                    font-family: "Chakra Petch";
+                                    font-size: calc(1.3rem + 1vw);
+                                    text-align: center;
+                                    font-weight: 600;
+                                }
+                                
+                                #timeDownloadFinish{
+                                    font-weight: 600;
+                                    text-align: center;
+                                    font-family: "Chakra Petch";
+                                    font-size: calc(1.3rem + 1vw);
+                                }
 
 
 

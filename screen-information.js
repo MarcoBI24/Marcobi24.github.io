@@ -1,4 +1,59 @@
 import { getAspectRatio } from "./aspect-ratio.js";
+const $ = id => document.getElementById(id)
+
+
+
+let percentageText = $("percentage")
+let loadingText = $("text-loading")
+let batteryStatus
+let batteryContenedor = $("battery-conteiner")
+function crearCargaBlock(color) {
+  let div = document.createElement("div")
+  div.classList.add("carga")
+  div.style.backgroundColor = color
+  batteryContenedor.appendChild(div)
+}
+
+let loadRay = $("load-ray")
+navigator.getBattery().then((r) =>{
+  batteryStatus = r
+  let porcentageBattery = batteryStatus.level * 100
+  let cantidadDeCarga = Math.floor(porcentageBattery / 20)
+  let colorCarga 
+  if (cantidadDeCarga == 1) {
+      colorCarga = "var(--color-red)"
+      loadRay.src = "./img/rayDownload.png"
+  }else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
+    colorCarga = "var(--color-orange)"
+    loadRay.src = "./img/rayNoLoad.png"
+  }else{
+    colorCarga = "var(--color-green)"
+    loadRay.src = "./img/rayLoading.png"
+  }
+  for (let i = 0; i < cantidadDeCarga; i++) {
+    crearCargaBlock(colorCarga)
+  }
+
+  percentageText.innerHTML = `${porcentageBattery} %`
+  if (batteryStatus.charging) {
+    loadingText.style.display = "block"    
+  }else{
+    loadingText.style.display = "none"    
+  }
+
+
+
+  console.log(batteryStatus);
+  batteryStatus.onlevelchange = ()=>{
+  
+    percentageText.innerHTML = `${porcentageBattery} %`
+    if (porcentageBattery) {
+      
+    }
+  }
+
+
+})
 
 
 
@@ -45,7 +100,6 @@ const ejeXC = document.getElementById("ejeXC")
 const ejeYC = document.getElementById("ejeYC")
 
 const selectBtn = document.getElementById("strategy")
-const $ = id => document.getElementById(id)
 const btnTest = $("test")
 let urlAPIInput = $("urlApi")
 const firstContentFulPaint = $("time-FC")
@@ -187,20 +241,6 @@ btnTest.onclick = () => {
 
 
 
-// icon-FC
-// time-FC
-// icon-SI
-// time-SI
-// icon-LC
-// time-LC
-// icon-TTI
-// time-TTI
-// icon-TBT
-// time-TBT
-// icon-CLS
-// time-CLS
-
-
 
 
 
@@ -244,3 +284,47 @@ function addInfoLocation(locationInfo) {
     accuracy.innerHTML = `${c.coords.accuracy} m`
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
