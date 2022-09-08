@@ -1,13 +1,17 @@
 import { getAspectRatio } from "./aspect-ratio.js";
 const $ = id => document.getElementById(id)
-  if (!navigator.getBattery) {
-    
-    document.body.innerHTML = "No FUNCIONA "
-  }
+if (!navigator.getBattery) {
+
+  document.body.innerHTML = "No FUNCIONA "
+}
 
 
 let percentageText = $("percentage")
 let loadingText = $("text-loading")
+let loadRay = $("load-ray")
+let timeLoad = $("timeLoadFinish")
+let timeDownload = $("timeDownloadFinish")
+
 let batteryStatus
 let batteryContenedor = $("battery-conteiner")
 function crearCargaBlock(color) {
@@ -17,48 +21,84 @@ function crearCargaBlock(color) {
   batteryContenedor.appendChild(div)
 }
 
-let loadRay = $("load-ray")
-navigator.getBattery().then((r) =>{
+navigator.getBattery().then((r) => {
   batteryStatus = r
   let porcentageBattery = batteryStatus.level * 100
   let cantidadDeCarga = Math.floor(porcentageBattery / 20)
-  let colorCarga 
-  if (cantidadDeCarga == 1 || cantidadDeCarga == 0) {
-      colorCarga = "var(--color-red)"
-      loadRay.src = "./img/rayDownload.png"
-      cantidadDeCarga = 1
-  }else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
-    colorCarga = "var(--color-orange)"
-    loadRay.src = "./img/rayNoLoad.png"
-  }else{
-    colorCarga = "var(--color-green)"
-    loadRay.src = "./img/rayLoading.png"
+  let colorCarga = calcularCantidadDeCarga(cantidadDeCarga)
+  if (cantidadDeCarga == 0) {
+    cantidadDeCarga = 1
   }
   for (let i = 0; i < cantidadDeCarga; i++) {
     crearCargaBlock(colorCarga)
   }
 
+  timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
+  timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
+  batteryStatus.onchargingtimechange = ()=>{
+    timeLoad.innerHTML = calcularTiempoDeCarga(batteryStatus.chargingTime)
+
+  }
+  batteryStatus.ondischargingtimechange = ()=>{
+    timeDownload.innerHTML = calcularTiempoDeDescarga(batteryStatus.dischargingTime)
+  }
+
+
+  
   percentageText.innerHTML = `${porcentageBattery} %`
-  batteryStatus.onchargingchange = ()=>{
+  if (batteryStatus.charging) {
+    loadingText.style.display = "block"
+  }
+  batteryStatus.onchargingchange = () => {
     if (batteryStatus.charging) {
-      loadingText.style.display = "block"    
-    }else{
-      loadingText.style.display = "none"    
+      loadingText.style.display = "block"
+    } else {
+      loadingText.style.display = "none"
     }
   }
 
 
 
   console.log(batteryStatus);
-  batteryStatus.onlevelchange = ()=>{
-  
+  batteryStatus.onlevelchange = () => {
     percentageText.innerHTML = `${porcentageBattery} %`
-    if (porcentageBattery) {
-      
-    }
   }
+  function calcularTiempoDeCarga(tiempo) {
+    if (tiempo == "Infinity") {
+      return "No esta cargando"
+    }
+    let time = tiempo / 60
+    let tiempoEnMin = Math.floor(time)
+    let tiempoEnSeg = Math.floor((time - tiempoEnMin) * 60)
+    return `${tiempoEnMin} : ${tiempoEnSeg}`
 
+  }
+  function calcularTiempoDeDescarga(tiempo) {
+    if (tiempo == "Infinity") {
+      return "Esta cargando"
+    }
+    let time = tiempo / 60
+    let tiempoEnMin = Math.floor(time)
+    let tiempoEnSeg = Math.floor((time - tiempoEnMin) * 60)
+    return `${tiempoEnMin} : ${tiempoEnSeg}`
 
+  }
+  function calcularCantidadDeCarga(cantidadDeCarga) {
+    let colorCarga
+    if (cantidadDeCarga == 1 || cantidadDeCarga == 0) {
+      colorCarga = "var(--color-red)"
+      loadRay.src = "./img/rayDownload.png"
+      cantidadDeCarga = 1
+    } else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
+      colorCarga = "var(--color-orange)"
+      loadRay.src = "./img/rayNoLoad.png"
+    } else {
+      colorCarga = "var(--color-green)"
+      loadRay.src = "./img/rayLoading.png"
+    }
+    return colorCarga
+  }
+  
 })
 
 
@@ -137,24 +177,24 @@ function startLoadingAnimation() {
     console.log(square3.style.background);
     if (square1.style.background == "rgb(12, 206, 107)") {
       square1.style.background = "rgb(255, 65, 129)"
-    }else if (square1.style.background == "rgb(255, 65, 129)") {
+    } else if (square1.style.background == "rgb(255, 65, 129)") {
       square1.style.background = "rgb(255, 164, 0)"
-    }else{
+    } else {
       square1.style.background = "rgb(12, 206, 107)"
     }
-  
+
     if (square2.style.background == "rgb(255, 164, 0)") {
       square2.style.background = "rgb(12, 206, 107)"
-    }else if (square2.style.background == "rgb(12, 206, 107)") {
+    } else if (square2.style.background == "rgb(12, 206, 107)") {
       square2.style.background = "rgb(255, 65, 129)"
-    }else{
+    } else {
       square2.style.background = "rgb(255, 164, 0)"
     }
     if (square3.style.background == "rgb(255, 65, 129)") {
       square3.style.background = "rgb(255, 164, 0)"
-    }else if (square3.style.background == "rgb(255, 164, 0)") {
+    } else if (square3.style.background == "rgb(255, 164, 0)") {
       square3.style.background = "rgb(12, 206, 107)"
-    }else{
+    } else {
       square3.style.background = "rgb(255, 65, 129)"
     }
   }, 400);
@@ -185,7 +225,7 @@ async function getResolve(url) {
   return fetch(url).then(resolve => {
     resolve = resolve.text()
     return resolve
-  }).catch((error)=>{
+  }).catch((error) => {
     console.log(error);
     finishLoadingAnimation()
   })
@@ -201,47 +241,47 @@ async function setResolveToPerformance(url = "https://www.google.com", strategy 
   data = JSON.parse(data)
   console.log(data);
 
-  function setTime(data,element, property,iconElement) {
-      if ($$(data, property).score * 100 >= 90) {
-        element.style.color = "#0cce6b"
-        iconElement.style.background = "#0cce6b"
-      }else if($$(data, property).score * 100 >= 50){
-        element.style.color = "#ffa400"
-        iconElement.style.background = "#ffa400"
-      }
-      else{
-        element.style.color = "#ff4181"
-        iconElement.style.background = "#ff4181"
-      }
-      return $$(data,property).displayValue;
-    
+  function setTime(data, element, property, iconElement) {
+    if ($$(data, property).score * 100 >= 90) {
+      element.style.color = "#0cce6b"
+      iconElement.style.background = "#0cce6b"
+    } else if ($$(data, property).score * 100 >= 50) {
+      element.style.color = "#ffa400"
+      iconElement.style.background = "#ffa400"
+    }
+    else {
+      element.style.color = "#ff4181"
+      iconElement.style.background = "#ff4181"
+    }
+    return $$(data, property).displayValue;
+
   }
 
-  firstContentFulPaint.innerHTML = setTime(data,firstContentFulPaint,"first-contentful-paint",iconFirstContentFulPaint)
+  firstContentFulPaint.innerHTML = setTime(data, firstContentFulPaint, "first-contentful-paint", iconFirstContentFulPaint)
 
-  speedIndex.innerHTML = setTime(data,speedIndex,"speed-index",iconSpeedIndex)
+  speedIndex.innerHTML = setTime(data, speedIndex, "speed-index", iconSpeedIndex)
 
-  largestContentFulPaint.innerHTML = setTime(data,largestContentFulPaint,"largest-contentful-paint",iconLargestContentFulPaint)
+  largestContentFulPaint.innerHTML = setTime(data, largestContentFulPaint, "largest-contentful-paint", iconLargestContentFulPaint)
 
-  timeToInteractive.innerHTML =setTime(data,timeToInteractive,"interactive",iconTimeToInteractive)
+  timeToInteractive.innerHTML = setTime(data, timeToInteractive, "interactive", iconTimeToInteractive)
 
-  totalBlockingTime.innerHTML =setTime(data,totalBlockingTime,"total-blocking-time",iconTotalBlockingTime)
+  totalBlockingTime.innerHTML = setTime(data, totalBlockingTime, "total-blocking-time", iconTotalBlockingTime)
 
 
-  cumulativeLayoutShift.innerHTML = setTime(data,cumulativeLayoutShift,"cumulative-layout-shift",iconCumulativeLayoutShift)
+  cumulativeLayoutShift.innerHTML = setTime(data, cumulativeLayoutShift, "cumulative-layout-shift", iconCumulativeLayoutShift)
   finishLoadingAnimation()
 }
 setResolveToPerformance()
-function $$(obj,index) {
+function $$(obj, index) {
   return obj.lighthouseResult.audits[index]
-  }
+}
 btnTest.onclick = () => {
   console.log(selectBtn.value);
   btnTest.style.color = "#999"
   elementAnimationLoading.style.display = "flex"
   startLoadingAnimation()
-  setResolveToPerformance(urlAPIInput.value,selectBtn.value)
-  
+  setResolveToPerformance(urlAPIInput.value, selectBtn.value)
+
   urlAPIInput.value = ""
 }
 

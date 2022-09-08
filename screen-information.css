@@ -256,7 +256,6 @@ body{
                 }
                     .contenedor-battery-status{
                         display: flex;
-                        border: 1px solid var(--color-green);
                         justify-content: space-around;
                         flex-wrap: wrap;
                         gap: 30px;
@@ -290,7 +289,6 @@ body{
                             .carga{
                                 width: 40px;
                                 height: 100%;
-                                background-color: var(--color-green);
                                 border-radius: 5px;
                             }
 
