@@ -20,7 +20,7 @@ navigator.getBattery().then((r) =>{
   let porcentageBattery = batteryStatus.level * 100
   let cantidadDeCarga = Math.floor(porcentageBattery / 20)
   let colorCarga 
-  if (cantidadDeCarga == 1) {
+  if (cantidadDeCarga == 1 || cantidadDeCarga == 0) {
       colorCarga = "var(--color-red)"
       loadRay.src = "./img/rayDownload.png"
   }else if (cantidadDeCarga > 1 && cantidadDeCarga < 4) {
