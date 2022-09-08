@@ -1,6 +1,9 @@
 import { getAspectRatio } from "./aspect-ratio.js";
 const $ = id => document.getElementById(id)
-
+  if (!navigator.getBattery) {
+    
+    document.body.innerHTML = "No FUNCIONA "
+  }
 
 
 let percentageText = $("percentage")
